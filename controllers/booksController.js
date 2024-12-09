@@ -1,18 +1,15 @@
 const books = require('../models/booksModel');
 
-// Get all books
 const getAllBooks = (req, res) => {
   res.json(books);
 };
 
-// Get a book by ID
 const getBookById = (req, res) => {
   const book = books.find(b => b.id === parseInt(req.params.id));
   if (!book) return res.status(404).send('Book not found');
   res.json(book);
 };
 
-// Create a new book
 const createBook = (req, res) => {
   const newBook = {
     id: books.length + 1,
@@ -25,7 +22,6 @@ const createBook = (req, res) => {
   res.status(201).json(newBook);
 };
 
-// Update a book
 const updateBook = (req, res) => {
   const book = books.find(b => b.id === parseInt(req.params.id));
   if (!book) return res.status(404).send('Book not found');
@@ -38,7 +34,6 @@ const updateBook = (req, res) => {
   res.json(book);
 };
 
-// Delete a book
 const deleteBook = (req, res) => {
   const bookIndex = books.findIndex(b => b.id === parseInt(req.params.id));
   if (bookIndex === -1) return res.status .status(404).send('Book not found');
@@ -47,7 +42,6 @@ const deleteBook = (req, res) => {
   res.status(204).send();
 };
 
-// Get books by genre
 const getBooksByGenre = (req, res) => {
   const genre = req.params.genre;
   const filteredBooks = books.filter(b => b.genre.toLowerCase() === genre.toLowerCase());
